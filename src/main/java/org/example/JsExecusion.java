@@ -23,7 +23,7 @@ public class JsExecusion {  // Реализуем клики через Js, т.�
     }
 
     /**
-     * clicks on elements with JS executor
+     * clicks on elem/home/artevseev/IdeaProjects/AutoTheory100Points/src/main/java/org/example/Pagesents with JS executor
      * @param element	what WebElement to click
      */
     public void clickOnElement(WebElement element) {

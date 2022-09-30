@@ -1,48 +1,40 @@
 package org.example;
 
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-
-import java.time.Duration;
-import java.time.LocalTime;
+import org.example.config.Config;
+import org.example.config.Login;
+import org.example.funcs.AcceptWorksByParameters;
+import org.example.links.LinkWithParameters;
+import org.example.links.Parameters;
 
 public class Main {
         public static void main(String[] args){
-        final String LOGIN = "MyLogin";
-        final String PASSWORD = "MyPassword";
-        final String LOGIN_PAGE = "https://api.100points.ru/login";
-        final String GECKODRIVER = "/home/artevseev/Desktop/Selenium/geckodriver";
-        final String HWPAGE = "https://api.100points.ru/student_homework/index?email=&name=&course_id=25&module_id=47&lesson_id=208";
+                final String LOGIN = "aevseev444@gmail.com";
+                final String PASSWORD = "aevseev444@gmail.com";
+                final String LOGIN_PAGE = "https://api.100points.ru/login";
+                final String DRIVERPATH = "/home/artevseev/Desktop/Selenium/geckodriver";
+                final String HWPAGE = "https://api.100points.ru/student_homework/index?email=&name=&course_id=&module_id=&lesson_id=";
 
-        System.setProperty("webdriver.gecko.driver", GECKODRIVER);
-        WebDriver driver = new FirefoxDriver(); // Init driver
+                final String EMAIL = "aevseev444@gmail.com";
+                final String NAME = "";
+                final String COURSE_ID = "25";
+                final String MODULE_ID = "47";
+                final String LESSON_ID = "366";
+        //        TODO(Написать функцию создания параметров из ссылки)
+        //        TODO(Переделать функцию принятия работ (и все остальные) для класса Parameters)
+        //        TODO()
+        //        TODO(Придумать что-то с записью параметров из консоли)
+        //        TODO(Реализовать функцию получения имейлов из таблицы)
+                LinkWithParameters link = new LinkWithParameters(HWPAGE);
+                Parameters parameters = new Parameters();
+                parameters.setEmail(EMAIL)
+                        .setName(NAME)
+                        .setCourse_id(COURSE_ID)
+                        .setModule_id(MODULE_ID)
+                        .setLesson_id(LESSON_ID);
 
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+                Config config = new Config(LOGIN, PASSWORD, LOGIN_PAGE, DRIVERPATH);
+                Login.login(config);
 
-        driver.get(LOGIN_PAGE);
-        LoginPage loginPage = new LoginPage(driver);
-        loginPage.inputLogin(LOGIN);
-        loginPage.inputPassword(PASSWORD);
-        loginPage.clickLoginButton();   // Зарегались
-
-        int chet = 0;
-        while (true) {
-            try {
-
-                driver.get(HWPAGE);
-                HomeworksPage homeworksPage = new HomeworksPage(driver);
-                homeworksPage.clickFirstHwButton(); //  Открыли первую дз из списка
-
-                OneHomeworkPage oneHomeworkPage = new OneHomeworkPage(driver);
-                oneHomeworkPage.clickAllLabels(); // Отметили все задания
-                oneHomeworkPage.acceptHW();
-                System.out.println(LocalTime.now() + " Работ принято: " + ++chet);
-            } catch (NoSuchElementException e) {
-                System.out.println("РАБОТЫ ЗАКОНЧИЛИСЬ!!!");
-                break;
-            }
+                AcceptWorksByParameters.acceptAllWorks(config.getDriver(), HWPAGE);
         }
-    }
-
 }

@@ -1,5 +1,6 @@
-package org.example;
+package org.example.Pages;
 
+import org.example.JsExecusion;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -38,6 +39,6 @@ public class OneHomeworkPage {
 
     public void acceptHW() {
         acceptButton.click();
-        acceptAcceptButton.click();
+//        acceptAcceptButton.click();
     }
 }
