@@ -2,13 +2,12 @@ package org.artevseev.funcs;
 
 import org.artevseev.Pages.HomeworksPage;
 import org.artevseev.Pages.OneHomeworkPage;
-import org.artevseev.links.LinkWithParameters;
+import org.artevseev.links.ListOfParameters;
 import org.artevseev.links.Parameters;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 
-import java.sql.Time;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.List;
@@ -16,10 +15,11 @@ import java.util.List;
 public class AcceptWorksByParameters {
 
     private static void acceptFirstWorksByParameters(WebDriver driver, Parameters parameters){
-        LinkWithParameters link = new LinkWithParameters(parameters);
         try {
-            driver.get(link.getLink());
-        } catch (TimeoutException ignore){}
+            driver.get(parameters.generateLink());
+        } catch (TimeoutException ignore){
+            System.out.println("Timeout with getting first hw");
+        }
 
 
             HomeworksPage homeworksPage = new HomeworksPage(driver);
@@ -58,7 +58,8 @@ public class AcceptWorksByParameters {
             for (String email : emailList) {
                 while (true) {  // Check all works
                     try {
-                        acceptFirstWorksByParameters(driver, parameters.copy().setEmail(email));
+                        acceptFirstWorksByParameters(driver,
+                                parameters.copy().setParameter(ListOfParameters.EMAIL, email));
                         System.out.println(Thread.currentThread() + " " + LocalTime.now() + ": Работа ученика " + email + " проверена");
                     } catch (NoSuchElementException e){
                         System.out.println(Thread.currentThread() + " " + LocalTime.now() + ": Все работы ученика " + email + " проверены");

@@ -3,7 +3,6 @@ package org.artevseev.threads;
 import org.artevseev.config.Config;
 import org.artevseev.config.Login;
 import org.artevseev.funcs.AcceptWorksByParameters;
-import org.artevseev.links.LinkWithParameters;
 import org.artevseev.links.Parameters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -24,8 +23,7 @@ public class NewAcceptingByParameters implements Runnable{
     NewAcceptingByParameters(String name, Config config, String link){
         t = new Thread(this, name);
         this.config = config;
-        this.parameters = new LinkWithParameters(link)
-                .getParameters();
+        this.parameters = new Parameters(link);
         t.start();
     }
 

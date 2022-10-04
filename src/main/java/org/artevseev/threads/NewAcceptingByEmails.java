@@ -3,7 +3,6 @@ package org.artevseev.threads;
 import org.artevseev.config.Config;
 import org.artevseev.config.Login;
 import org.artevseev.funcs.AcceptWorksByParameters;
-import org.artevseev.links.LinkWithParameters;
 import org.artevseev.links.Parameters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -28,8 +27,7 @@ public class NewAcceptingByEmails implements Runnable{
     NewAcceptingByEmails(String name, Config config, String link, List<String> emailList){
         t = new Thread(this, name);
         this.config = config;
-        this.parameters = new LinkWithParameters(link)
-                .getParameters();
+        this.parameters = new Parameters(link);
         this.emailList = emailList;
         t.start();
     }
@@ -38,7 +36,7 @@ public class NewAcceptingByEmails implements Runnable{
     public void run() {
         FirefoxOptions op = new FirefoxOptions();
         op.addArguments("--headless");  // Without GUI
-        WebDriver driver = new FirefoxDriver(op); // Init driver
+        WebDriver driver = new FirefoxDriver(); // Init driver
 
 
         Login.login(config, driver);
