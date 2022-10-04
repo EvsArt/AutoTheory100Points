@@ -47,10 +47,14 @@ public class OneHomeworkPage {
     private WebElement acceptAcceptButton;
 
     public void acceptHW() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(visibilityOfElementLocated(By.className("btn-success")));
-        acceptButton.click();
-        wait.until(visibilityOfElementLocated(By.id("applyBtn")));
-        acceptAcceptButton.click();
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(visibilityOfElementLocated(By.className("btn-success")));
+            acceptButton.click();
+            wait.until(visibilityOfElementLocated(By.id("applyBtn")));
+            acceptAcceptButton.click();
+        } catch (TimeoutException e){
+            System.out.println("Timeout Exception with waiting for accepting");
+        }
     }
 }

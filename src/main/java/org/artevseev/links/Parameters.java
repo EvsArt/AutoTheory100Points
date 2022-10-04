@@ -50,4 +50,14 @@ public class Parameters {
         return this;
     }
 
+    public Parameters copy(){
+        Parameters res = new Parameters(emptyLink);
+        res.email = email;
+        res. name = name;
+        res.course_id = course_id;
+        res.module_id = module_id;
+        res.lesson_id = lesson_id;
+        return res;
+    }
+
 }
