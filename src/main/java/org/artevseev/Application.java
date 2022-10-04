@@ -11,8 +11,8 @@ import java.io.IOException;
 public class Application {
     public static void run(String[] args) {
         /* Technical information */
-        final String LOGIN = "aevseev444@gmail.com";
-        final String PASSWORD = "aevseev444@gmail.com";
+        final String LOGIN = "s";
+        final String PASSWORD = "s";
         final String LOGIN_PAGE = "https://api.100points.ru/login";
         final String DRIVERPATH = "/home/artevseev/Desktop/Selenium/geckodriver";
         final String EMPTYLINKSTOCK = "https://api.100points.ru/exchange/index?email=&name=&course_id=&module_id=&lesson_id=";
@@ -23,7 +23,7 @@ public class Application {
         Parameters parametersSTOCK = new Parameters(EMPTYLINKSTOCK);  // Common parameter
 
         Config config = new Config(LOGIN, PASSWORD, LOGIN_PAGE, DRIVERPATH);
-        Config configAdm = new Config("adysya2003@gmail.com", "adysya2003@gmail.com",
+        Config configAdm = new Config("s", "s",
                 LOGIN_PAGE, DRIVERPATH);
 
 
