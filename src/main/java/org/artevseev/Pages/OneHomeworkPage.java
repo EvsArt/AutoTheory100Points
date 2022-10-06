@@ -22,7 +22,7 @@ public class OneHomeworkPage {
     public OneHomeworkPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofMillis(1000));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
 
@@ -46,15 +46,45 @@ public class OneHomeworkPage {
     @FindBy(id="applyBtn")
     private WebElement acceptAcceptButton;
 
+    @FindBy(id = "change_decision")
+    private WebElement changeDecision;
+
+    @FindBy(xpath = "/html/body/div/div[1]/section/div/form/div[3]/div/div[2]/div/div/div[16]/div/button[2]")
+    private WebElement cancelButton;
+
+    @FindBy(xpath = "/html/body/div/div[1]/section/div/form/div[1]/div/div/div[2]/div/div[2]/div[1]/div[3]/div[2]")
+    private WebElement commentDiv;
+
+    @FindBy(id = "rejectBtn")
+    private WebElement acceptCancelling;
+
+
     public void acceptHW() {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             wait.until(visibilityOfElementLocated(By.className("btn-success")));
             acceptButton.click();
-//            wait.until(visibilityOfElementLocated(By.id("applyBtn")));
-//            acceptAcceptButton.click();
+            wait.until(visibilityOfElementLocated(By.id("applyBtn")));
+            acceptAcceptButton.click();
+
         } catch (TimeoutException e){
             System.out.println("Timeout Exception with waiting for accepting");
+        }
+    }
+
+    public void cancelHW(){
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(200));
+//            wait.until(visibilityOfElementLocated(By.id("change_decision")));
+//            changeDecision.click();
+            wait.until(visibilityOfElementLocated(By.xpath("/html/body/div/div[1]/section/div/form/div[1]/div/div/div[2]/div/div[2]/div[1]/div[3]/div[2]")));
+            commentDiv.sendKeys("К сожалению, ты сдал(а) домашнее задание после окончания дедлайна, поэтому твою работу проверит личный куратор");
+            wait.until(visibilityOfElementLocated(By.xpath("/html/body/div/div[1]/section/div/form/div[3]/div/div[2]/div/div/div/div/button")));
+            cancelButton.click();
+            wait.until(visibilityOfElementLocated(By.id("rejectBtn")));
+            acceptCancelling.click();
+        } catch (TimeoutException e){
+            System.out.println("Timeout Exception with waiting for cancelling");
         }
     }
 }

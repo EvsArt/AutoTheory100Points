@@ -35,8 +35,9 @@ public class NewAcceptingByEmails implements Runnable{
     @Override
     public void run() {
         FirefoxOptions op = new FirefoxOptions();
+        op.setCapability("pageLoadStrategy", "eager");  // Without full loading
         op.addArguments("--headless");  // Without GUI
-        WebDriver driver = new FirefoxDriver(); // Init driver
+        WebDriver driver = new FirefoxDriver(op); // Init driver
 
 
         Login.login(config, driver);

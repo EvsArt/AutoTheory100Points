@@ -55,21 +55,22 @@ public class AcceptWorksByParameters {
 
     public static void acceptWorksByEmails(WebDriver driver, Parameters parameters, List<String> emailList){
         while (true) {  // Work without stop
+            int i = 1;
             for (String email : emailList) {
                 while (true) {  // Check all works
                     try {
                         acceptFirstWorksByParameters(driver,
                                 parameters.copy().setParameter(ListOfParameters.EMAIL, email));
-                        System.out.println(Thread.currentThread() + " " + LocalTime.now() + ": Работа ученика " + email + " проверена");
+                        System.out.println(Thread.currentThread() + " " + LocalTime.now() + " Работа ученика " + email + " принята");
                     } catch (NoSuchElementException e){
-                        System.out.println(Thread.currentThread() + " " + LocalTime.now() + ": Все работы ученика " + email + " проверены");
+                        System.out.println(Thread.currentThread() + " " + LocalTime.now() + ": Почта №" + i++ + ": Все работы ученика " + email + " приняты");
                         break;
                     }
                 }
             }
             try {
-                System.out.println(Thread.currentThread() + " " + LocalTime.now() + ": Все работы у всех проверены!");
-                Thread.sleep(60000);
+                System.out.println(Thread.currentThread() + " " + LocalTime.now() + ": Все работы у всех приняты!");
+                Thread.sleep(1800000);
             } catch (InterruptedException e) {
                 System.out.println(Thread.currentThread() + " не спит(");
             }
