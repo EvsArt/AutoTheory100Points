@@ -39,6 +39,11 @@ public class OneHomeworkPage {
         }
     }
 
+    @FindBy(xpath = "/html/body/div/div[1]/section/div/form/div[1]/div/div/div[2]/div/div[1]/div[1]/input")
+    private WebElement nameOfStudent;
+
+    @FindBy(xpath = "/html/body/div/div[1]/section/div/form/div[1]/div/div/div[2]/div/div[1]/div[5]")
+    private WebElement hisScores;
 
     @FindBy(className="btn-success")
     private WebElement acceptButton;
@@ -49,7 +54,7 @@ public class OneHomeworkPage {
     @FindBy(id = "change_decision")
     private WebElement changeDecision;
 
-    @FindBy(xpath = "/html/body/div/div[1]/section/div/form/div[3]/div/div[2]/div/div/div[16]/div/button[2]")
+    @FindBy(css = "#decision_buttons > button:nth-child(2)")
     private WebElement cancelButton;
 
     @FindBy(xpath = "/html/body/div/div[1]/section/div/form/div[1]/div/div/div[2]/div/div[2]/div[1]/div[3]/div[2]")
@@ -74,17 +79,27 @@ public class OneHomeworkPage {
 
     public void cancelHW(){
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(200));
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofMillis(5000));
 //            wait.until(visibilityOfElementLocated(By.id("change_decision")));
 //            changeDecision.click();
             wait.until(visibilityOfElementLocated(By.xpath("/html/body/div/div[1]/section/div/form/div[1]/div/div/div[2]/div/div[2]/div[1]/div[3]/div[2]")));
             commentDiv.sendKeys("К сожалению, ты сдал(а) домашнее задание после окончания дедлайна, поэтому твою работу проверит личный куратор");
-            wait.until(visibilityOfElementLocated(By.xpath("/html/body/div/div[1]/section/div/form/div[3]/div/div[2]/div/div/div/div/button")));
+            wait.until(visibilityOfElementLocated(By.cssSelector("#decision_buttons > button:nth-child(2)")));
             cancelButton.click();
             wait.until(visibilityOfElementLocated(By.id("rejectBtn")));
             acceptCancelling.click();
         } catch (TimeoutException e){
             System.out.println("Timeout Exception with waiting for cancelling");
         }
+    }
+
+    public String showName(){
+        String res0 = nameOfStudent.getAttribute("value");
+        String[] tmp = res0.split(" ");
+        return tmp[1] + " " + tmp[0];
+    }
+
+    public String getScores(){
+        return hisScores.getText();
     }
 }

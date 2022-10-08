@@ -41,13 +41,13 @@ public class AcceptWorksByParameters {
         while (true) {
             try {
                 acceptFirstWorksByParameters(driver, parameters);
-                System.out.println(Thread.currentThread().getName() + ": " + LocalTime.now() + " Работ принято: " + ++chet);
+                System.out.println(LocalTime.now() + ": " + Thread.currentThread().getName() + " Работ принято: " + ++chet);
             }catch (NoSuchElementException e){
-                System.out.println(Thread.currentThread().getName() + " " + LocalTime.now() + ": Идёт поиск работ");
+                System.out.println(LocalTime.now() + " " + Thread.currentThread().getName() + ": Идёт поиск работ");
                 try {
-                    Thread.sleep(60000);
+                    Thread.sleep(300000);
                 } catch (InterruptedException ex) {
-                    System.out.println(Thread.currentThread() + " " + LocalTime.now() + ": не засыпает(((");
+                    System.out.println(LocalTime.now() + " " + Thread.currentThread() + ": не засыпает(((");
                 }
             }
         }
@@ -61,18 +61,18 @@ public class AcceptWorksByParameters {
                     try {
                         acceptFirstWorksByParameters(driver,
                                 parameters.copy().setParameter(ListOfParameters.EMAIL, email));
-                        System.out.println(Thread.currentThread() + " " + LocalTime.now() + " Работа ученика " + email + " принята");
+                        System.out.println(LocalTime.now() + " " + Thread.currentThread() + " Работа ученика " + email + " принята");
                     } catch (NoSuchElementException e){
-                        System.out.println(Thread.currentThread() + " " + LocalTime.now() + ": Почта №" + i++ + ": Все работы ученика " + email + " приняты");
+                        System.out.println(LocalTime.now() + " " + Thread.currentThread() + ": Почта №" + i++ + ": Все работы ученика " + email + " приняты");
                         break;
                     }
                 }
             }
             try {
-                System.out.println(Thread.currentThread() + " " + LocalTime.now() + ": Все работы у всех приняты!");
+                System.out.println(LocalTime.now() + " " + Thread.currentThread() + ": Все работы у всех приняты!");
                 Thread.sleep(1800000);
             } catch (InterruptedException e) {
-                System.out.println(Thread.currentThread() + " не спит(");
+                System.out.println(LocalTime.now() + " " + Thread.currentThread() + " не спит(");
             }
         }
     }

@@ -48,4 +48,9 @@ public class HomeworksPage {
 
         getFirstHw().click();
     }
+
+    public void clickNHwButton(int n){
+        getHwByNum(n).click();
+    }
+
 }

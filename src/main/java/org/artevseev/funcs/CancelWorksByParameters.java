@@ -24,14 +24,14 @@ public class CancelWorksByParameters {
         HomeworksPage homeworksPage = new HomeworksPage(driver);
 
         if(homeworksPage.getFirstHwDate().after(deadline)){
-            System.out.println(homeworksPage.getFirstHwDate());
+
             homeworksPage.clickFirstHwButton(); //  Open first hw
             OneHomeworkPage oneHomeworkPage = new OneHomeworkPage(driver);
 
             oneHomeworkPage.cancelHW();
         }
         else {
-            throw new NoSuchElementException("Все работы после дедлайна отклонены!");
+            throw new NoSuchElementException(Thread.currentThread().getName() + " " + LocalTime.now() + ": Все работы после дедлайна отклонены!");
         }
 
     }
@@ -45,13 +45,13 @@ public class CancelWorksByParameters {
         while (true) {
             try {
                 cancelFirstWorksByParameters(driver, parameters, deadline);
-                System.out.println(Thread.currentThread().getName() + ": " + LocalTime.now() + " Работ отклонено: " + ++chet);
+                System.out.println(LocalTime.now() + " " + Thread.currentThread().getName() + " Работ отклонено: " + ++chet);
             }catch (NoSuchElementException e){
-                System.out.println(Thread.currentThread().getName() + " " + LocalTime.now() + ": Идёт поиск работ");
+                System.out.println(LocalTime.now() + " " + Thread.currentThread().getName() + ": Идёт поиск работ");
                 try {
-                    Thread.sleep(60000);
+                    Thread.sleep(300000);
                 } catch (InterruptedException ex) {
-                    System.out.println(Thread.currentThread() + " " + LocalTime.now() + ": не засыпает(((");
+                    System.out.println(LocalTime.now() + " " + Thread.currentThread().getName() + ": не засыпает(((");
                 }
             }
         }
